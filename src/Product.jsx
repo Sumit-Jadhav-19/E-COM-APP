@@ -64,7 +64,7 @@ export default function Product() {
   };
   return (
     <>
-      <div className="flex flex-wrap justify-between gap-y-3 p-2 mt-26 h-[90vh] overflow-x-auto">
+      <div className="flex flex-wrap justify-between gap-y-3 p-2 mt-15 h-[90vh] overflow-x-auto">
         {products.map((item, index) => {
           if (products.length === index + 1) {
             return (
