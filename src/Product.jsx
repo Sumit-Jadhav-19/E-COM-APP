@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import AddCart from "./AddCart";
-import {StarIcon} from '@heroicons/react/24/outline';
-
+import { StarIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router";
 
 const LIMIT = 10;
 export default function Product() {
@@ -32,22 +32,20 @@ export default function Product() {
   // Fetch data
   const fetchData = () => {
     setLoading(true);
-    try {
-      fetch(`https://dummyjson.com/products?limit=${LIMIT}&skip=${skip}`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.products.length === 0) {
-            setHasMore(false);
-          } else {
-            setProducts((prev) => [...prev, ...data.products]);
-          }
-        });
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      setLoading(false);
-    }
+    fetch(`https://dummyjson.com/products?limit=${LIMIT}&skip=${skip}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.products.length === 0) {
+          setHasMore(false);
+        } else {
+          setProducts((prev) => [...prev, ...data.products]);
+        }
+        setLoading(false); // ✅ only after successful fetch
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+        setLoading(false); // ✅ even if fetch fails
+      });
   };
 
   useEffect(() => {
@@ -64,7 +62,7 @@ export default function Product() {
   };
   return (
     <>
-      <div className="flex flex-wrap justify-between gap-y-3 p-2 mt-15 h-[90vh] overflow-x-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 p-2 h-[90vh] overflow-x-auto">
         {products.map((item, index) => {
           if (products.length === index + 1) {
             return (
@@ -73,14 +71,21 @@ export default function Product() {
                 ref={lastProductRef}
                 key={index}
               >
-                <div className="border-b-1 border-gray-300">
+                <Link
+                  to="/productdetails"
+                  className="border-b-1 border-gray-300"
+                  state={item.id}
+                >
                   <img className="h-auto w-100" src={item.thumbnail} />
-                </div>
+                </Link>
                 <div className="p-2">
                   <h3 className="font-bold text-sm truncate">{item.title}</h3>
                   <div className="flex justify-between mt-1">
                     <p className="text-xs font-semibold">${item.price}</p>
-                    <p className="text-xs"><StarIcon className="h-5 w-5 "></StarIcon>{item.rating}</p>
+                    <p className="text-xs flex gap-0.5">
+                      <StarIcon className="h-4 w-4 fill-amber-400 text-amber-400"></StarIcon>
+                      {item.rating}
+                    </p>
                   </div>
                   <button
                     type="button"
@@ -99,19 +104,22 @@ export default function Product() {
               key={index}
               className="w-[200px]  border-gray-200 rounded-md cursor-pointer shadow-md border-1 hover:shadow-2xl group"
             >
-              <div className="border-b-1 border-gray-300">
+              <Link to="/productdetails" state={item.id} className="border-b-1 border-gray-300">
                 <img className="h-auto w-100" src={item.thumbnail} />
-              </div>
+              </Link>
               <div className="p-2">
                 <h3 className="font-bold text-sm truncate">{item.title}</h3>
                 <div className="flex justify-between mt-1">
                   <p className="text-xs font-bold">${item.price}</p>
-                  <p className="text-xs flex gap-0.5"><StarIcon className="h-4 w-4 fill-amber-400 text-amber-400"></StarIcon>{item.rating}</p>
+                  <p className="text-xs flex gap-0.5">
+                    <StarIcon className="h-4 w-4 fill-amber-400 text-amber-400"></StarIcon>
+                    {item.rating}
+                  </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => handleShowModal(item)}
-                  className="text-xs  text-center w-[100%] border-1 border-gray-200 mt-2 p-1 rounded-sm cursor-pointer bg-gray-100 text-black  group-hover:bg-black group-hover:text-white"
+                  className="text-xs  text-center w-[100%] border-1 border-gray-200 mt-2 p-2 rounded-xs cursor-pointer bg-gray-100 text-black  group-hover:bg-black group-hover:text-white"
                 >
                   Add to Cart
                 </button>

@@ -3,7 +3,7 @@ import { useCart } from "./CartContext";
 
 export default function ProductModal({ isOpen, onClose, product }) {
   const [cartItems, setCartItems] = useState(() => {
-    const saved = localStorage.getItem('cartItems');
+    const saved = localStorage.getItem("cartItems");
     return saved ? JSON.parse(saved) : [];
   });
   const [count, setCount] = useState(1);
@@ -20,15 +20,17 @@ export default function ProductModal({ isOpen, onClose, product }) {
 
   const addCart = () => {
     onClose();
-    addToCart();
+    const products = localStorage.getItem("cartItems");
+    setCartItems(JSON.parse(products));
     handleAddToCart(product, count);
   };
   const handleAddToCart = (product, count) => {
     setCartItems((prevItems) => {
+      console.log(prevItems);
       const itemExists = prevItems.find((item) => item.Id === product.id);
       if (itemExists) {
         return prevItems.map((item) =>
-          item.Id === product.id ? { ...item, Qty: item.Qty + count } : item
+          item.Id == product.id ? { ...item, Qty: item.Qty + count } : item
         );
       } else {
         return [...prevItems, { Id: product.id, Qty: count }];
@@ -37,6 +39,7 @@ export default function ProductModal({ isOpen, onClose, product }) {
   };
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    addToCart();
   }, [cartItems]);
 
   if (!isOpen || !product) return null;

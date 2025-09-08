@@ -8,7 +8,12 @@ export function CartProvider({ children }) {
     console.log(saved);
     return saved ? JSON.parse(saved).length : 0;
   });
-  const addToCart = () => setCartCount((prev) => prev + 1);
+  const addToCart = () =>
+    setCartCount(() => {
+      const saved = localStorage.getItem("cartItems");
+      console.log('saved',saved);
+      return saved ? JSON.parse(saved).length : 0;
+    });
   const removeFromCart = () => {
     setCartCount((prev) => (prev > 0 ? prev - 1 : 0));
   };
