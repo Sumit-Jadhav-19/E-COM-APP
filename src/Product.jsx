@@ -61,8 +61,8 @@ export default function Product() {
     setShowModal(false);
   };
   return (
-    <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 p-2 h-[90vh] overflow-x-auto">
+    <div className="h-[90vh] overflow-x-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-2 ">
         {products.map((item, index) => {
           if (products.length === index + 1) {
             return (
@@ -132,20 +132,20 @@ export default function Product() {
           );
         })}
 
-        {loading && (
-          <p className="mt-4 text-center text-gray-500 w-[100%]">Loading...</p>
-        )}
-        {!hasMore && (
-          <p className="mt-4 text-center text-gray-500 w-[100%]">
-            No more products
-          </p>
-        )}
         <AddCart
           isOpen={showModal}
           onClose={handleCloseModal}
           product={selectedProduct}
         />
       </div>
-    </>
+      {loading && (
+        <p className="mt-3 text-center text-gray-500 w-[100%]">Loading...</p>
+      )}
+      {!hasMore && (
+        <p className="mt-3 text-center text-gray-500 w-full">
+          No more products
+        </p>
+      )}
+    </div>
   );
 }

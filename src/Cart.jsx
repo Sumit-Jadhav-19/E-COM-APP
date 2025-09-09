@@ -1,11 +1,13 @@
 import { ShoppingBagIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState, useRef } from "react";
 import { useCart } from "./CartContext";
+import { Link } from "react-router";
 export default function Cart({ cartToggle, setCartToggle }) {
   const [cartItems, setCartItems] = useState([]);
   const { removeFromCart } = useCart();
   const [loader, setLoader] = useState(false);
   const cartRef = useRef();
+  const viewCartRef = useRef();
 
   useEffect(() => {
     if (cartToggle) {
@@ -15,9 +17,10 @@ export default function Cart({ cartToggle, setCartToggle }) {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        cartToggle &&
-        cartRef.current &&
-        !cartRef.current.contains(event.target)
+        (cartToggle &&
+          cartRef.current &&
+          !cartRef.current.contains(event.target)) ||
+        (viewCartRef.current && viewCartRef.current.contains(event.target))
       ) {
         setCartToggle(false);
       }
@@ -106,7 +109,7 @@ export default function Cart({ cartToggle, setCartToggle }) {
       >
         <h1 className="text-center py-1 text-md font-semibold flex items-center gap-1 justify-center">
           <ShoppingBagIcon className="w-4 h-4"></ShoppingBagIcon>
-          <span>Your Cart Items</span>
+          <span>Cart Items</span>
         </h1>
         <hr className="text-gray-300" />
         {cartItems.length === 0 ? (
@@ -190,19 +193,17 @@ export default function Cart({ cartToggle, setCartToggle }) {
               <div className="text-xs text-gray-500 mt-2">
                 Taxes and shipping are calculated at checkout.
               </div>
-              <div>
-                <button
-                  type="button"
-                  className="w-full mt-4 bg-black p-2 text-white text-sm cursor-pointer rounded-xs hover:bg-black/75"
-                >
+              <div className="flex flex-col">
+                <Link className="w-full mt-4 bg-black p-2 text-white text-sm cursor-pointer rounded-xs hover:bg-black/75 text-center">
                   Checkout
-                </button>
-                <button
-                  type="button"
-                  className="w-full mt-4  p-2 text-black border-1 border-black text-sm cursor-pointer rounded-xs hover:bg-black/5"
+                </Link>
+                <Link
+                  className="w-[100%] mt-4  p-2 text-black border-1 border-black text-sm cursor-pointer rounded-xs hover:bg-black/5 text-center"
+                  to="/viewcart"
+                  ref={viewCartRef}
                 >
                   View Cart
-                </button>
+                </Link>
               </div>
             </div>
           </div>

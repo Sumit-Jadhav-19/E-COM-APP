@@ -9,6 +9,7 @@ import Login from "./Login";
 import Contact from "./Contact";
 import ProductDetails from "./ProductDetails";
 import Toast from "./Toast";
+import ViewCart from "./ViewCart";
 
 function App() {
   const [cartToggle, setCartToggle] = useState(false);
@@ -27,6 +28,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/productdetails" element={<ProductDetails />} />
+          <Route path="/viewcart" element={<ViewCart />} />
         </Routes>
       </BrowserRouter>
     </>
