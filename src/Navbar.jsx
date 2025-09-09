@@ -76,9 +76,9 @@ export default function Navbar({ setCartToggle }) {
               <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-sm">
                 <Link to="/contact">Contact</Link>
               </li>
-              <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-sm">
+              {/* <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-sm">
                 FAQ'S
-              </li>
+              </li> */}
             </ul>
 
             <div className="flex items-center gap-2">

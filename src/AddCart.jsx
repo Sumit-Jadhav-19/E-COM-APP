@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCart } from "./CartContext";
 import { useToast } from "./ToastContext";
+import { Link } from "react-router";
 
 export default function ProductModal({ isOpen, onClose, product }) {
   const [cartItems, setCartItems] = useState(() => {
@@ -132,8 +133,8 @@ export default function ProductModal({ isOpen, onClose, product }) {
                 Add to Cart
               </button>
             )}
+            <Link to='/productdetails' state={product.id} className="text-xs font-semibold hover:underline " href="#">View more details</Link>
           </div>
-          <a href="#">View more details</a>
         </div>
       </div>
     </div>
