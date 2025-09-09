@@ -1,8 +1,32 @@
 import { Link } from "react-router";
 import { useCart } from "./CartContext";
+import { useEffect, useRef, useState } from "react";
 
 export default function Navbar({ setCartToggle }) {
+  const cartRef = useRef();
   const { cartCount } = useCart();
+  const [cart, setCart] = useState(true);
+  const handleCart = () => {
+    setCart(!cart);
+    setCartToggle(cart);
+  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        setCartToggle &&
+        cartRef.current &&
+        !cartRef.current.contains(event.target)
+      ) {
+        setCart(true);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setCartToggle]);
   return (
     <>
       <div>
@@ -47,7 +71,8 @@ export default function Navbar({ setCartToggle }) {
               </Link>
               <div
                 className="cursor-pointer hover:text-indigo-500 relative"
-                onClick={setCartToggle}
+                onClick={handleCart}
+                ref={cartRef}
               >
                 <span className="absolute top-[-11px] right-[-5px] bg-black text-white w-[17px] h-[17px] rounded-[50%] text-[10px] text-center">
                   {cartCount}

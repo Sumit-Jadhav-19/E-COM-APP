@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCart } from "./CartContext";
+import { useToast } from "./ToastContext";
 
 export default function ProductModal({ isOpen, onClose, product }) {
   const [cartItems, setCartItems] = useState(() => {
@@ -8,6 +9,7 @@ export default function ProductModal({ isOpen, onClose, product }) {
   });
   const [count, setCount] = useState(1);
   const { addToCart } = useCart();
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (isOpen && product != null) {
@@ -20,6 +22,7 @@ export default function ProductModal({ isOpen, onClose, product }) {
 
   const addCart = () => {
     onClose();
+    showToast(true);
     const products = localStorage.getItem("cartItems");
     setCartItems(JSON.parse(products));
     handleAddToCart(product, count);

@@ -104,7 +104,11 @@ export default function Product() {
               key={index}
               className="w-[200px]  border-gray-200 rounded-md cursor-pointer shadow-md border-1 hover:shadow-2xl group"
             >
-              <Link to="/productdetails" state={item.id} className="border-b-1 border-gray-300">
+              <Link
+                to="/productdetails"
+                state={item.id}
+                className="border-b-1 border-gray-300"
+              >
                 <img className="h-auto w-100" src={item.thumbnail} />
               </Link>
               <div className="p-2">

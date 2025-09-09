@@ -8,17 +8,19 @@ import Cart from "./Cart";
 import Login from "./Login";
 import Contact from "./Contact";
 import ProductDetails from "./ProductDetails";
+import Toast from "./Toast";
 
 function App() {
   const [cartToggle, setCartToggle] = useState(false);
-  const setToggle = () => {
-    setCartToggle(!cartToggle);
+  const setToggle = (val) => {
+    setCartToggle(val);
   };
   return (
     <>
       <BrowserRouter>
-        <Navbar setCartToggle={setToggle}  />
+        <Navbar setCartToggle={setToggle} />
         <Cart cartToggle={cartToggle} setCartToggle={setCartToggle} />
+        <Toast />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

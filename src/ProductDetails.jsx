@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { useCart } from "./CartContext";
-import {
-  ArrowRightCircleIcon,
-  StarIcon,
-  TruckIcon,
-} from "@heroicons/react/24/outline";
+import { StarIcon, TruckIcon } from "@heroicons/react/24/outline";
 import {
   ArrowPathRoundedSquareIcon,
-  ArrowUturnLeftIcon,
   SwatchIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/solid";
+import { useToast } from "./ToastContext";
 
 export default function ProductDetails() {
   const location = useLocation();
@@ -24,8 +20,10 @@ export default function ProductDetails() {
   });
   const { addToCart } = useCart();
   const [selectedImg, setSelectedImg] = useState(null);
+  const { showToast } = useToast();
 
   const addCart = () => {
+    showToast(true);
     const products = localStorage.getItem("cartItems");
     setCartItems(JSON.parse(products));
     handleAddToCart(product, qty);
@@ -205,7 +203,8 @@ export default function ProductDetails() {
                       {item.rating}
                     </p>
                     <p className="text-[10px] ms-8  flex items-center gap-0.5 text-gray-400">
-                      <span>Date : </span> {item.date.replace("T", " ").split('.')[0]}
+                      <span>Date : </span>{" "}
+                      {item.date.replace("T", " ").split(".")[0]}
                     </p>
                   </div>
                   <p className="text-xs ms-8 mt-1 mb-2">{item.comment}</p>
