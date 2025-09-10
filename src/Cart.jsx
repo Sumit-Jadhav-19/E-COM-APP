@@ -102,29 +102,29 @@ export default function Cart({ cartToggle, setCartToggle }) {
       )}
 
       <div
-        className={`h-full w-70 bg-white absolute right-0 top-12 transition-all duration-500 ease-in-out ${
+        className={`h-full min-w-[340px]  bg-white absolute right-0 top-12 transition-all duration-500 ease-in-out ${
           cartToggle ? "translate-x-0px" : "translate-x-full"
         } z-51 border-t-1 border-t-gray-300`}
         ref={cartRef}
       >
-        <h1 className="text-center py-1 text-md font-semibold flex items-center gap-1 justify-center">
-          <ShoppingBagIcon className="w-4 h-4"></ShoppingBagIcon>
+        <h1 className="text-center py-3 text-xl font-semibold flex items-center gap-1 justify-center">
+          <ShoppingBagIcon className="w-6 h-6"></ShoppingBagIcon>
           <span>Cart Items</span>
         </h1>
         <hr className="text-gray-300" />
         {cartItems.length === 0 ? (
           loader ? (
-            <div className="text-center mt-3 text-gray-400 text-md">
+            <div className="text-center mt-3 text-gray-400 text-lg">
               Loading....
             </div>
           ) : (
-            <div className="text-center mt-3 text-gray-400 text-md">
+            <div className="text-center mt-3 text-gray-400 text-lg">
               No Items in cart
             </div>
           )
         ) : (
           <div>
-            <div className="p-2 px-3 h-[55vh] overflow-y-auto">
+            <div className="p-2 px-3 h-[60vh] overflow-y-auto">
               <ul>
                 {cartItems.map((item, index) => (
                   <li
@@ -136,14 +136,14 @@ export default function Cart({ cartToggle, setCartToggle }) {
                         <div>
                           <img
                             src={item.thumbnail}
-                            className="w-[70px] h-[70px] max-w-none border-1 border-gray-300"
+                            className="w-[100px] h-[100px] max-w-none border-1 border-gray-300"
                           />
                         </div>
                         <div>
-                          <h2 className="text-[12px] font-semibold">
+                          <h2 className="text-[1em] font-semibold">
                             {item.title}
                           </h2>
-                          <p className="text-[11px] font-semibold">
+                          <p className="text-[0.9em] font-semibold">
                             ${item.price}
                           </p>
                           <div className="border-1 border-gray-400 flex mt-3 w-fit rounded-xs">
@@ -175,7 +175,7 @@ export default function Cart({ cartToggle, setCartToggle }) {
                           type="button"
                           onClick={() => removeProduct(item.id)}
                         >
-                          <TrashIcon className="h-4 w-4 text-gray-500 cursor-pointer hover:text-gray-700"></TrashIcon>
+                          <TrashIcon className="h-5 w-5 text-gray-500 cursor-pointer hover:text-gray-700"></TrashIcon>
                         </button>
                       </div>
                     </div>
@@ -185,20 +185,20 @@ export default function Cart({ cartToggle, setCartToggle }) {
             </div>
             <div className="p-4">
               <div className="flex justify-between items-center">
-                <h1 className="text-md font-semibold">Estimated total</h1>
-                <p className="text-sm font-semibold">
+                <h1 className="text-xl font-semibold">Estimated total</h1>
+                <p className="text-xl font-semibold">
                   ${totalPrice.toFixed(2)}
                 </p>
               </div>
-              <div className="text-xs text-gray-500 mt-2">
+              <div className="text-sm text-gray-500 mt-2">
                 Taxes and shipping are calculated at checkout.
               </div>
               <div className="flex flex-col">
-                <Link className="w-full mt-4 bg-black p-2 text-white text-sm cursor-pointer rounded-xs hover:bg-black/75 text-center">
+                <Link className="w-full mt-4 bg-black p-2 text-white text-lg cursor-pointer rounded-xs hover:bg-black/75 text-center">
                   Checkout
                 </Link>
                 <Link
-                  className="w-[100%] mt-4  p-2 text-black border-1 border-black text-sm cursor-pointer rounded-xs hover:bg-black/5 text-center"
+                  className="w-[100%] mt-4  p-2 text-black border-1 border-black text-lg cursor-pointer rounded-xs hover:bg-black/5 text-center"
                   to="/viewcart"
                   ref={viewCartRef}
                 >

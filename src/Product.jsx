@@ -62,12 +62,12 @@ export default function Product() {
   };
   return (
     <div className="h-[90vh] overflow-x-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-2 ">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-2 ">
         {products.map((item, index) => {
           if (products.length === index + 1) {
             return (
               <div
-                className="w-[200px]  border-gray-200 rounded-md cursor-pointer shadow-md border-1 hover:shadow-2xl group"
+                className="w-[100%]  border-gray-200 rounded-md cursor-pointer shadow-md border-1 hover:shadow-2xl group"
                 ref={lastProductRef}
                 key={index}
               >
@@ -79,7 +79,7 @@ export default function Product() {
                   <img className="h-auto w-100" src={item.thumbnail} />
                 </Link>
                 <div className="p-2">
-                  <h3 className="font-bold text-sm truncate">{item.title}</h3>
+                  <h3 className="font-bold text-md truncate">{item.title}</h3>
                   <div className="flex justify-between mt-1">
                     <p className="text-xs font-semibold">${item.price}</p>
                     <p className="text-xs flex gap-0.5">
@@ -90,7 +90,7 @@ export default function Product() {
                   <button
                     type="button"
                     onClick={() => handleShowModal(item)}
-                    className="text-xs  text-center w-[100%] border-1 border-gray-200 mt-2 p-1 rounded-sm cursor-pointer bg-gray-100 text-black  group-hover:bg-black group-hover:text-white"
+                    className="text-sm  text-center w-[100%] border-1 border-gray-200 mt-2 p-1 rounded-sm cursor-pointer bg-gray-100 text-black  group-hover:bg-black group-hover:text-white"
                   >
                     Add to Cart
                   </button>
@@ -102,7 +102,7 @@ export default function Product() {
           return (
             <div
               key={index}
-              className="w-[200px]  border-gray-200 rounded-md cursor-pointer shadow-md border-1 hover:shadow-2xl group"
+              className="w-[100%]  border-gray-200 rounded-md cursor-pointer shadow-md border-1 hover:shadow-2xl group"
             >
               <Link
                 to="/productdetails"
@@ -112,10 +112,10 @@ export default function Product() {
                 <img className="h-auto w-100" src={item.thumbnail} />
               </Link>
               <div className="p-2">
-                <h3 className="font-bold text-sm truncate">{item.title}</h3>
+                <h3 className="font-bold text-md truncate">{item.title}</h3>
                 <div className="flex justify-between mt-1">
-                  <p className="text-xs font-bold">${item.price}</p>
-                  <p className="text-xs flex gap-0.5">
+                  <p className="text-sm font-bold">${item.price}</p>
+                  <p className="text-sm flex gap-0.5">
                     <StarIcon className="h-4 w-4 fill-amber-400 text-amber-400"></StarIcon>
                     {item.rating}
                   </p>
@@ -123,7 +123,7 @@ export default function Product() {
                 <button
                   type="button"
                   onClick={() => handleShowModal(item)}
-                  className="text-xs  text-center w-[100%] border-1 border-gray-200 mt-2 p-2 rounded-xs cursor-pointer bg-gray-100 text-black  group-hover:bg-black group-hover:text-white"
+                  className="text-sm text-center w-[100%] border-1 border-gray-200 mt-2 p-2 rounded-xs cursor-pointer bg-gray-100 text-black  group-hover:bg-black group-hover:text-white"
                 >
                   Add to Cart
                 </button>
@@ -142,7 +142,7 @@ export default function Product() {
         <p className="mt-3 text-center text-gray-500 w-[100%]">Loading...</p>
       )}
       {!hasMore && (
-        <p className="mt-3 text-center text-gray-500 w-full">
+        <p className="text-lg mt-3 text-center text-gray-500 w-full">
           No more products
         </p>
       )}

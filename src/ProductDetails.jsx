@@ -63,8 +63,8 @@ export default function ProductDetails() {
   const decrement = () => setQty((prev) => (prev > 1 ? prev - 1 : 1));
   return (
     <div className="mt-15 px-20 py-10 overflow-y-auto h-[90vh]">
-      <div className="flex w-[100%]">
-        <div className="w-[50%] flex flex-col items-center">
+      <div className="flex w-[100%] md:flex-row flex-col">
+        <div className="md:w-[50%] flex flex-col items-center">
           <div className="border-1 border-gray-200 ">
             <img className="h-auto w-100" src={selectedImg} />
           </div>
@@ -82,16 +82,16 @@ export default function ProductDetails() {
               })}
           </div>
         </div>
-        <div className="w-[40%]">
-          <h2 className="text-xl font-semibold">{product.title}</h2>
+        <div className="md:w-[40%]">
+          <h2 className="text-2xl font-semibold">{product.title}</h2>
           <p className="text-xs mt-2 font-normal text-gray-500 ">
             SKU : {product.sku}
           </p>
           <div className="mt-3">
-            <span className="text-gray-700 font-semibold ">
+            <span className="text-xl text-gray-700 font-semibold ">
               ${product.price}
             </span>
-            <span className="ms-2 text-md line-through text-gray-500">
+            <span className="ms-2 text-lg line-through text-gray-500">
               $
               {(
                 product.price +
@@ -99,7 +99,7 @@ export default function ProductDetails() {
               ).toFixed(2)}
             </span>
           </div>
-          <p className="mt-3 text-xs font-semibold">Quantity </p>
+          <p className="mt-3 text-sm font-semibold">Quantity </p>
           <div className="border-1 border-gray-600 p-1 px-2 flex mt-3 w-fit rounded-xs">
             <button
               type="button"
@@ -124,16 +124,16 @@ export default function ProductDetails() {
           </div>
           {product.availabilityStatus &&
           product.availabilityStatus.toUpperCase() == "IN STOCK" ? (
-            <p className="text-green-600 text-md mt-3">
+            <p className="text-green-600 text-xl mt-3">
               {product.availabilityStatus}
             </p>
           ) : product.availabilityStatus &&
             product.availabilityStatus.toUpperCase() == "LOW STOCK" ? (
-            <p className="text-yellow-600 text-md mt-3">
+            <p className="text-yellow-600 text-xl mt-3">
               {product.availabilityStatus}
             </p>
           ) : (
-            <p className="text-red-600 text-md mt-3">
+            <p className="text-red-600 text-xl mt-3">
               {product.availabilityStatus}
             </p>
           )}
@@ -141,7 +141,7 @@ export default function ProductDetails() {
           product.availabilityStatus.toUpperCase() == "OUT OF STOCK" ? (
             <button
               type="button"
-              className="text-xs text-center w-[100%] border-1 border-gray-200 mt-10 p-2 rounded-sm cursor-pointer bg-black text-white hover:underline disabled:bg-black/50 disabled:cursor-default"
+              className="text-lg text-center w-[100%] border-1 border-gray-200 mt-10 p-2 rounded-sm cursor-pointer bg-black text-white hover:underline disabled:bg-black/50 disabled:cursor-default"
               disabled
             >
               Add to Cart
@@ -149,13 +149,13 @@ export default function ProductDetails() {
           ) : (
             <button
               type="button"
-              className="text-xs text-center w-[100%] border-1 border-gray-200 mt-10 p-2 rounded-sm cursor-pointer bg-black text-white hover:underline"
+              className="text-lg text-center w-[100%] border-1 border-gray-200 mt-10 p-2 rounded-sm cursor-pointer bg-black text-white hover:underline"
               onClick={addCart}
             >
               Add to Cart
             </button>
           )}
-          <div className="text-xs mt-2">{product.description}</div>
+          <div className="text-sm mt-2">{product.description}</div>
           <div className="mt-4 flex items-center justify-between bg-amber-300 py-4 px-2 border-1 border-gray-300">
             <div className="flex items-center gap-1">
               <TruckIcon className="h-5 w-5 fill-black text-black"></TruckIcon>
@@ -181,12 +181,12 @@ export default function ProductDetails() {
 
       <hr className="mt-4 text-gray-300" />
       <p className="mt-3 flex items-center gap-0.5">
-        <span className="font-medium">Rating : </span>
-        <StarIcon className="h-4 w-4 fill-amber-400 text-amber-400"></StarIcon>
+        <span className="font-medium text-lg">Rating : </span>
+        <StarIcon className="h-5 w-5 fill-amber-400 text-amber-400"></StarIcon>
         {product.rating}
       </p>
       <div className="mt-3">
-        <span className="font-medium">Reviews</span>
+        <span className="font-medium text-lg">Reviews</span>
         <ul className="ms-4">
           {product.reviews &&
             product.reviews.map((item, index) => {
@@ -194,20 +194,20 @@ export default function ProductDetails() {
                 <li key={index}>
                   <div className="flex items-center gap-2">
                     <UserCircleIcon className="h-5 w-5 text-black"></UserCircleIcon>
-                    <p className="text-sm">{item.reviewerName}</p>
+                    <p className="text-lg">{item.reviewerName}</p>
                   </div>
                   <div className="flex items-center mt-2">
-                    <p className="text-[10px] ms-8  flex items-center gap-0.5 text-gray-400">
-                      <span>Rating :</span>{" "}
+                    <p className="text-[14px] ms-8  flex items-center gap-0.5 text-gray-400">
+                      <span>Rating :</span>
                       <StarIcon className="h-3 w-3 fill-amber-400 text-amber-400"></StarIcon>
                       {item.rating}
                     </p>
-                    <p className="text-[10px] ms-8  flex items-center gap-0.5 text-gray-400">
-                      <span>Date : </span>{" "}
+                    <p className="text-[14px] ms-8  flex items-center gap-0.5 text-gray-400">
+                      <span>Date : </span>
                       {item.date.replace("T", " ").split(".")[0]}
                     </p>
                   </div>
-                  <p className="text-xs ms-8 mt-1 mb-2">{item.comment}</p>
+                  <p className="text-sm ms-8 mt-1 mb-2">{item.comment}</p>
                 </li>
               );
             })}

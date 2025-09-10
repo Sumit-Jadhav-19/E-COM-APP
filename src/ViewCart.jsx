@@ -77,27 +77,27 @@ export default function ViewCart() {
     0
   );
   return (
-    <div className="mt-20 px-60">
-      <div className="flex gap-5">
+    <div className="mt-20 px-1 md:px-60">
+      <div className="flex flex-col md:flex-row gap-5 h-[90vh] overflow-y-auto">
         <div className="flex-50">
-          <h1 className="text-center text-md font-semibold flex items-center gap-1 justify-center">
-            <ShoppingBagIcon className="w-4 h-4"></ShoppingBagIcon>
+          <h1 className="text-center text-xl font-semibold flex items-center gap-1 justify-center">
+            <ShoppingBagIcon className="w-5 h-5"></ShoppingBagIcon>
             <span>Cart Items ({cartCount})</span>
           </h1>
           <hr className="text-gray-300 my-4" />
           {cartItems.length === 0 ? (
             loader ? (
-              <div className="text-center mt-3 text-gray-400 text-md">
+              <div className="text-center mt-3 text-gray-400 text-lg">
                 Loading....
               </div>
             ) : (
-              <div className="text-center mt-3 text-gray-400 text-md">
+              <div className="text-center mt-3 text-gray-400 text-lg">
                 No Items in cart
               </div>
             )
           ) : (
             <div>
-              <div className="p-2 px-3 h-[77vh] overflow-y-auto">
+              <div className="p-2 px-3 md:h-[77vh] md:overflow-y-auto">
                 <ul>
                   {cartItems.map((item, index) => (
                     <li
@@ -109,14 +109,14 @@ export default function ViewCart() {
                           <div>
                             <img
                               src={item.thumbnail}
-                              className="w-[100px] h-[100px] max-w-none border-1 border-gray-300"
+                              className="w-[140px] h-[140px] max-w-none border-1 border-gray-300"
                             />
                           </div>
                           <div>
-                            <h2 className="text-[12px] font-semibold">
+                            <h2 className="text-[1em] font-semibold">
                               {item.title}
                             </h2>
-                            <p className="text-[11px] font-semibold">
+                            <p className="text-[.9em] font-semibold">
                               ${item.price}
                             </p>
                             <div className="border-1 border-gray-400 flex mt-3 w-fit rounded-xs">
@@ -148,7 +148,7 @@ export default function ViewCart() {
                             type="button"
                             onClick={() => removeProduct(item.id)}
                           >
-                            <TrashIcon className="h-4 w-4 text-gray-500 cursor-pointer hover:text-gray-700"></TrashIcon>
+                            <TrashIcon className="h-5 w-5 text-gray-500 cursor-pointer hover:text-gray-700"></TrashIcon>
                           </button>
                         </div>
                       </div>
@@ -160,7 +160,7 @@ export default function ViewCart() {
           )}
         </div>
         <div className="flex-30">
-          <h1 className="text-center text-md font-semibold flex items-center gap-1 justify-center">
+          <h1 className="text-center text-xl font-semibold flex items-center gap-1 justify-center">
             <span>Order Summery</span>
           </h1>
           <hr className="text-gray-300 my-4" />
@@ -177,18 +177,18 @@ export default function ViewCart() {
             </div>
             <hr className="text-gray-300 my-3" />
             <div className="flex justify-between items-center">
-              <h1 className="text-md font-semibold">Total</h1>
+              <h1 className="text-lg font-semibold">Total</h1>
               <p className="text-sm font-semibold">${totalPrice.toFixed(2)}</p>
             </div>
             <div className="flex flex-col">
-              <Link className="w-full mt-4 bg-black p-2 text-white text-sm cursor-pointer rounded-xs hover:bg-black/75 text-center">
+              <Link className="w-full mt-4 bg-black p-2 text-white text-xl cursor-pointer rounded-xs hover:bg-black/75 text-center">
                 Checkout
               </Link>
             </div>
             <div className="text-center mt-4">
               <p className="flex items-center justify-center gap-0.5">
-                <LockClosedIcon className="h-4 w-4"></LockClosedIcon>
-                <span className="text-xs font-semibold">Secure Checkout</span>
+                <LockClosedIcon className="h-5 w-5"></LockClosedIcon>
+                <span className="text-sm font-semibold">Secure Checkout</span>
               </p>
             </div>
           </div>

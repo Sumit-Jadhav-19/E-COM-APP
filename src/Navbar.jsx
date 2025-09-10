@@ -1,11 +1,15 @@
 import { Link } from "react-router";
 import { useCart } from "./CartContext";
 import { useEffect, useRef, useState } from "react";
+import { Bars3BottomLeftIcon } from "@heroicons/react/24/solid";
 
 export default function Navbar({ setCartToggle }) {
   const cartRef = useRef();
+  const menuRef = useRef();
+  const menuIconRef = useRef();
   const { cartCount } = useCart();
   const [cart, setCart] = useState(true);
+  const [menu, setMenu] = useState(false);
   const handleCart = () => {
     setCart(!cart);
     setCartToggle(cart);
@@ -27,10 +31,34 @@ export default function Navbar({ setCartToggle }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [setCartToggle]);
+
+  useEffect(() => {
+    const handleClickOutsideNav = (event) => {
+      if (
+        menuIconRef &&
+        menuIconRef.current &&
+        !menuIconRef.current.contains(event.target)
+      ) {
+        if (
+          menuRef &&
+          menuRef.current &&
+          !menuRef.current.contains(event.target)
+        ) {
+          setMenu(false);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutsideNav);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideNav);
+    };
+  }, [menu]);
   return (
     <>
       <div>
-        <div className="fixed top-0 w-full flex items-center justify-between px-4 py-2 bg-white shadow-xl border-b-1 border-b-gray-300">
+        <div className="fixed top-0 w-screen flex items-center justify-between px-4 py-2 bg-white shadow-xl border-b-1 border-b-gray-300">
           <div className="flex items-center gap-3">
             <div>
               <svg
@@ -63,28 +91,22 @@ export default function Navbar({ setCartToggle }) {
                 </g>
               </svg>
             </div>
-            <h1 className="font-bold text-3xl text-black font-sans font-serif">E COM</h1>
+            <h1 className="font-bold text-3xl text-black font-serif">E COM</h1>
           </div>
           <div className="flex">
-            <ul className="flex items-center justify-between px-4 gap-3">
-              <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-sm">
+            <ul className="hidden md:visible md:flex items-center justify-between px-4 gap-3">
+              <li className="cursor-pointer font-medium hover:text-indigo-500 text-lg">
                 <Link to="/">Home</Link>
               </li>
-              <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-sm">
+              <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-lg">
                 <Link to="/about">About</Link>
               </li>
-              <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-sm">
+              <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-lg">
                 <Link to="/contact">Contact</Link>
               </li>
-              {/* <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-sm">
-                FAQ'S
-              </li> */}
-            </ul>
-
-            <div className="flex items-center gap-2">
               <Link
                 to="/login"
-                className="flex gap-1 items-center pe-4 py-1 text-sm cursor-pointer rounded-sm text-center font-medium hover:text-indigo-500"
+                className="flex gap-1 items-center pe-4 py-1 text-lg cursor-pointer rounded-sm text-center font-medium hover:text-indigo-500"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -100,19 +122,22 @@ export default function Navbar({ setCartToggle }) {
                 </svg>
                 Login
               </Link>
+            </ul>
+
+            <div className="flex items-center gap-2">
               <div
                 className="cursor-pointer hover:text-indigo-500 relative"
                 onClick={handleCart}
                 ref={cartRef}
               >
-                <span className="absolute top-[-11px] right-[-5px] bg-black text-white w-[17px] h-[17px] rounded-[50%] text-[10px] text-center">
+                <span className="absolute top-[-11px] right-[-5px] bg-black text-white w-[20px] h-[20px] rounded-[50%] text-[12px] text-center">
                   {cartCount}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="size-5"
+                  className="size-6"
                 >
                   <path
                     fillRule="evenodd"
@@ -120,6 +145,53 @@ export default function Navbar({ setCartToggle }) {
                     clipRule="evenodd"
                   />
                 </svg>
+              </div>
+              <div className="md:hidden mx-2">
+                <Bars3BottomLeftIcon
+                  className="w-6 h-6 cursor-pointer"
+                  onClick={() => setMenu(!menu)}
+                  ref={menuIconRef}
+                ></Bars3BottomLeftIcon>
+                {menu ? (
+                  <div className="w-screen h-screen bg-black/50 z-50 absolute top-12 right-0 transition duration-500 ease-in-out"></div>
+                ) : (
+                  ""
+                )}
+
+                <ul
+                  className={`flex flex-col absolute top-[48px] right-0 h-screen w-[250px] items-center justify-start bg-white px-4 gap-3 transition-all duration-500 ease-in-out transform ${
+                    menu ? "translate-x-0px" : "translate-x-full"
+                  } z-51 border-t-1 border-t-gray-400`}
+                  ref={menuRef}
+                >
+                  <li className="cursor-pointer font-medium hover:text-indigo-500 text-lg mt-3">
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-lg">
+                    <Link to="/about">About</Link>
+                  </li>
+                  <li className="cursor-pointer text-md font-medium hover:text-indigo-500 text-lg">
+                    <Link to="/contact">Contact</Link>
+                  </li>
+                  <Link
+                    to="/login"
+                    className="flex gap-1 items-center pe-4 py-1 text-lg cursor-pointer rounded-sm text-center font-medium hover:text-indigo-500"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Login
+                  </Link>
+                </ul>
               </div>
             </div>
           </div>
